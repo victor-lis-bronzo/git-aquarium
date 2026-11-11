@@ -1,0 +1,28 @@
+name: 'Git Aquarium'
+description: 'Generate an Amazonian blackwater aquarium SVG from GitHub contribution metrics.'
+inputs:
+  github_token:
+    description: 'GitHub token with read:user scope'
+    required: true
+  username:
+    description: 'GitHub username to render'
+    required: true
+  output:
+    description: 'Output SVG path'
+    required: false
+    default: 'aquarium.svg'
+  mock:
+    description: 'Optional mock mode preset: dormant|moderate|thriving'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: npm ci
+    - shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        AQUARIUM_USERNAME: ${{ inputs.username }}
+        AQUARIUM_OUTPUT: ${{ inputs.output }}
+        AQUARIUM_MOCK: ${{ inputs.mock }}
+      run: npm run generate -- --output "$AQUARIUM_OUTPUT" ${AQUARIUM_MOCK:+--mock "$AQUARIUM_MOCK"}

@@ -1,0 +1,24 @@
+{
+  "name": "git-aquarium",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "generate": "node --enable-source-maps dist/index.js",
+    "generate:mock:thriving": "tsx src/index.ts --mock thriving --output assets/preview-thriving.svg",
+    "generate:mock:dormant": "tsx src/index.ts --mock dormant --output assets/preview-dormant.svg",
+    "ci": "npm run typecheck && npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.6"
+  }
+}
