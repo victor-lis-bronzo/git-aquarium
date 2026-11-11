@@ -26,4 +26,22 @@ describe('renderAquariumSvg', () => {
     expect(svg).toMatch(/<g id="angelfish">/);
     expect(svg).toMatch(/<g id="corydoras">/);
   });
+
+  it('uses valid CSS calc() for animation durations and nests fish animation within positioning group', () => {
+    const metrics = MOCK_DATASETS.moderate;
+    const ecosystem = deriveEcosystemState(metrics, 'svg-seed');
+    const svg = renderAquariumSvg({ width: 960, height: 320, metrics, ecosystem });
+
+    // Invalid CSS: var(--dur)s, var(--sway)s, var(--rise)s, var(--sink)s
+    expect(svg).not.toMatch(/var\(--[a-zA-Z0-9]+\)s/);
+
+    // Must use calc(var(--dur) * 1s)
+    expect(svg).toMatch(/calc\(var\(--dur\) \* 1s\)/);
+    expect(svg).toMatch(/calc\(var\(--sway\) \* 1s\)/);
+    expect(svg).toMatch(/calc\(var\(--rise\) \* 1s\)/);
+    expect(svg).toMatch(/calc\(var\(--sink\) \* 1s\)/);
+
+    // Fish animation group must be nested inside positioning group to preserve coordinates
+    expect(svg).toMatch(/<g transform="translate\([^"]+\) scale\([^"]+\) rotate\([^"]+\)" opacity="[^"]+"><g class="fish"/);
+  });
 });

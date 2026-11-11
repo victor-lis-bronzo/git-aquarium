@@ -7,7 +7,7 @@ const symbolFor = (species: FishEntity['species']): string =>
 export function renderFauna(width: number, height: number, state: EcosystemState, fish: FishEntity[]): string {
   const bodies = fish.map((f) => {
     const transform = `translate(${f.x.toFixed(2)} ${f.y.toFixed(2)}) scale(${(f.direction * f.scale).toFixed(3)} ${f.scale.toFixed(3)}) rotate(${f.pitchAngle.toFixed(2)})`;
-    return `<g class="fish" style="--dur:${f.swimDurationSec.toFixed(2)};--delay:${f.swimDelaySec.toFixed(2)};--dx:${f.driftX.toFixed(2)};--dy:${f.bobY.toFixed(2)}" transform="${transform}" opacity="${f.opacity.toFixed(3)}"><use href="${symbolFor(f.species)}" /></g>`;
+    return `<g transform="${transform}" opacity="${f.opacity.toFixed(3)}"><g class="fish" style="--dur:${f.swimDurationSec.toFixed(2)};--delay:${f.swimDelaySec.toFixed(2)};--dx:${f.driftX.toFixed(2)};--dy:${f.bobY.toFixed(2)}"><use href="${symbolFor(f.species)}" /></g></g>`;
   }).join('');
 
   const rng = new SeededRNG(`${state.seed}:fauna`);
