@@ -15,4 +15,15 @@ describe('renderAquariumSvg', () => {
     expect(svg.includes('id="flora"')).toBe(true);
     expect(svg.includes('NaN')).toBe(false);
   });
+
+  it('defines fish species as <g> elements instead of <symbol> to prevent 100% viewport scaling in browsers', () => {
+    const metrics = MOCK_DATASETS.moderate;
+    const ecosystem = deriveEcosystemState(metrics, 'svg-seed');
+    const svg = renderAquariumSvg({ width: 960, height: 320, metrics, ecosystem });
+
+    expect(svg).not.toMatch(/<symbol id="(cardinalTetra|angelfish|corydoras)"/);
+    expect(svg).toMatch(/<g id="cardinalTetra">/);
+    expect(svg).toMatch(/<g id="angelfish">/);
+    expect(svg).toMatch(/<g id="corydoras">/);
+  });
 });

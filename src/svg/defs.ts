@@ -22,22 +22,22 @@ export function renderDefs(state: EcosystemState): string {
       <feGaussianBlur stdDeviation="1.8" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <symbol id="cardinalTetra" viewBox="-30 -12 60 24">
+    <g id="cardinalTetra">
       <ellipse cx="0" cy="0" rx="22" ry="8" fill="#c83737" />
       <rect x="-22" y="-5" width="44" height="4" rx="2" fill="#39a7ff" />
       <polygon points="22,0 30,-5 30,5" fill="#d24848" />
-    </symbol>
-    <symbol id="angelfish" viewBox="-20 -26 40 52">
+    </g>
+    <g id="angelfish">
       <ellipse cx="0" cy="2" rx="12" ry="17" fill="#d8d2c6" />
       <polygon points="0,-26 -7,-9 7,-9" fill="#e9e4da" />
       <polygon points="0,26 -6,10 6,10" fill="#e9e4da" />
       <rect x="-10" y="-5" width="20" height="2" fill="#67604d" opacity="0.45"/>
-    </symbol>
-    <symbol id="corydoras" viewBox="-24 -8 48 16">
+    </g>
+    <g id="corydoras">
       <ellipse cx="0" cy="0" rx="16" ry="6" fill="#8a7a5f" />
       <polygon points="16,0 24,-4 24,4" fill="#77684f" />
       <line x1="-14" y1="0" x2="-22" y2="4" stroke="#b8a780" stroke-width="1" />
       <line x1="-14" y1="0" x2="-22" y2="-4" stroke="#b8a780" stroke-width="1" />
-    </symbol>
+    </g>
   </defs>`;
 }
