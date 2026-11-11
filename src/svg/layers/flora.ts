@@ -16,7 +16,7 @@ export function renderFlora(width: number, height: number, state: EcosystemState
     const x = rng.range(28, width - 28);
     const y = height - rng.range(20, 32);
     const scale = rng.range(0.7, 1.18);
-    return `<g class="plant" style="--sway:${rng.range(6, 11).toFixed(2)};--sdelay:${(-rng.range(0, 6)).toFixed(2)}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${scale.toFixed(2)})" opacity="0.74"><path d="M0 0 C-8 -20 -10 -38 0 -56 C10 -38 8 -20 0 0" fill="#5b8e50"/><path d="M-4 0 C-12 -16 -13 -31 -3 -45 C1 -30 0 -16 -4 0" fill="#6ca35c"/></g>`;
+    return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${scale.toFixed(2)})" opacity="0.74"><g class="plant" style="--sway:${rng.range(6, 11).toFixed(2)};--sdelay:${(-rng.range(0, 6)).toFixed(2)}"><path d="M0 0 C-8 -20 -10 -38 0 -56 C10 -38 8 -20 0 0" fill="#5b8e50"/><path d="M-4 0 C-12 -16 -13 -31 -3 -45 C1 -30 0 -16 -4 0" fill="#6ca35c"/></g></g>`;
   }).join('');
 
   const pistia = Array.from({ length: state.pistiaCount }, () => {

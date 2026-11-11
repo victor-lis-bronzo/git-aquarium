@@ -15,4 +15,16 @@ describe('renderAquariumSvg', () => {
     expect(svg.includes('id="flora"')).toBe(true);
     expect(svg.includes('NaN')).toBe(false);
   });
+
+  it('avoids sizeless <symbol>/<use>, invalid var()s durations and animated elements carrying a transform attribute', () => {
+    const metrics = MOCK_DATASETS.thriving;
+    const ecosystem = deriveEcosystemState(metrics, 'svg-seed');
+    const svg = renderAquariumSvg({ width: 960, height: 320, metrics, ecosystem });
+
+    expect(svg.includes('<symbol')).toBe(false);
+    expect(/var\(--\w+\)s/.test(svg)).toBe(false);
+    const animated = svg.match(/<[^>]*class="(?:fish|plant)"[^>]*>/g) ?? [];
+    expect(animated.length).toBeGreaterThan(0);
+    for (const tag of animated) expect(tag.includes(' transform=')).toBe(false);
+  });
 });
