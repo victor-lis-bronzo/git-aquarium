@@ -20,6 +20,8 @@ runs:
     - shell: bash
       run: npm ci
     - shell: bash
+      run: npm run build
+    - shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         AQUARIUM_USERNAME: ${{ inputs.username }}
