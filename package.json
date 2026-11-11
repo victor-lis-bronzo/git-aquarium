@@ -13,6 +13,7 @@
     "generate": "node --enable-source-maps dist/index.js",
     "generate:mock:thriving": "tsx src/index.ts --mock thriving --output assets/preview-thriving.svg",
     "generate:mock:dormant": "tsx src/index.ts --mock dormant --output assets/preview-dormant.svg",
+    "serve": "tsx scripts/preview-server.ts",
     "ci": "npm run typecheck && npm run test"
   },
   "devDependencies": {
