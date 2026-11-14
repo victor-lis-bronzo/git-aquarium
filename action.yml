@@ -18,13 +18,21 @@ runs:
   using: 'composite'
   steps:
     - shell: bash
+      working-directory: ${{ github.action_path }}
       run: npm ci
     - shell: bash
+      working-directory: ${{ github.action_path }}
       run: npm run build
     - shell: bash
+      working-directory: ${{ github.action_path }}
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         AQUARIUM_USERNAME: ${{ inputs.username }}
         AQUARIUM_OUTPUT: ${{ inputs.output }}
         AQUARIUM_MOCK: ${{ inputs.mock }}
-      run: npm run generate -- --output "$AQUARIUM_OUTPUT" ${AQUARIUM_MOCK:+--mock "$AQUARIUM_MOCK"}
+      run: |
+        # Resolve the output path against the caller's workspace, not the action directory.
+        out="$AQUARIUM_OUTPUT"
+        case "$out" in /*) ;; *) out="$GITHUB_WORKSPACE/$out" ;; esac
+        mkdir -p "$(dirname "$out")"
+        npm run generate -- --output "$out" ${AQUARIUM_MOCK:+--mock "$AQUARIUM_MOCK"}
